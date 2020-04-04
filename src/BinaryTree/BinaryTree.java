@@ -2,10 +2,8 @@
 package BinaryTree;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 /**
  *  Clase que se encarga de insertar, eliminar y mostrar el arbol binario. 
@@ -53,16 +51,22 @@ public class BinaryTree {
     }
     
     /**
-     * 
+     * imprime en profundidad el arbol
      */
     public void level (){
         if(this.root == null)
             return;
         
-        int level = 0;
-        Node aux = this.root;
-        while (true) {            
-            System.out.println("level " +level);
+        List<Node> queue = new ArrayList<>();
+        queue.add(this.root);
+        while (!queue.isEmpty()) {   
+            Node nodo = queue.remove(0);
+            System.out.println("Nodo de ID:"+nodo.getId());
+            
+            if(nodo.getLeft() != null)
+                queue.add(nodo.getLeft());
+            if(nodo.getRight()!= null)
+                queue.add(nodo.getRight());
         }
     }
     

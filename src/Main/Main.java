@@ -23,6 +23,7 @@ public class Main {
         
         tree = new BinaryTree();
         tree.autoFill(1000);
+        tree.level();
         tree.profundity();
     }
     
