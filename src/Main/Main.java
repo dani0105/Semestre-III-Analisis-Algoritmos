@@ -6,6 +6,8 @@
 package Main;
 
 import BinaryTree.BinaryTree;
+import Graph.Arco;
+import Graph.Graph;
 
 /**
  *
@@ -20,11 +22,19 @@ public class Main {
      */
     public static void main(String[] args) {
         BinaryTree tree;
+        Graph grafo;
         
         tree = new BinaryTree();
         tree.autoFill(1000);
         tree.level();
         tree.profundity();
+        
+        System.out.println("Grafos");
+        grafo = new Graph();
+        grafo.CrearGrafo(1000);
+        grafo.hayRuta(grafo.grafo, grafo.Gfinal); // recursivo
+        grafo.limpiar(); // limpia las marcas
+        grafo.anchura(); // iterativo
     }
     
 }
