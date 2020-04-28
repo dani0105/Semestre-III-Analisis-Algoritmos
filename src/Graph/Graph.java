@@ -27,13 +27,13 @@ public class Graph {
         if (grafo == null) {
             grafo = nuevo;
             Gfinal = nuevo;
-            System.out.println("Insertado"+" "+nombre);
+           
             return "Insertado";
         }
         nuevo.sigV = grafo;
         grafo.antV = nuevo;
         grafo = nuevo;
-        System.out.println("Insertado"+" "+nombre);
+       
         return "";
     }
     
@@ -142,7 +142,7 @@ public class Graph {
             return;
         }
         origen.marca = true;
-        System.out.println("Recursivo"+" "+origen.nombre);
+       
         Arco arco = origen.sigA;
         while(arco !=null){
             if(arco.destino == destino){
@@ -197,7 +197,6 @@ public class Graph {
         queue.add(Gfinal);
         while(!queue.isEmpty()){
             Vertice aux = queue.remove(0);
-            System.err.println("iterador"+" "+aux.nombre);
             if(aux.sigA.destino.marca != true){
                 aux.sigA.destino.marca = true;
                 queue.add(aux.sigA.destino);

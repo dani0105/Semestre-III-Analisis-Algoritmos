@@ -25,16 +25,32 @@ public class Main {
         Graph grafo;
         
         tree = new BinaryTree();
-        tree.autoFill(1000);
-        tree.level();
-        tree.profundity();
+        System.out.println("Llenando arbol");
+        tree.autoFill(100000);
+        System.out.println("Ejecutando aalgoritmos");
         
+        
+        
+        long start = System.currentTimeMillis();
+        tree.level();
+        long finish = System.currentTimeMillis();
+        
+        tree.printVars( finish - start);
+        
+        
+        start = System.currentTimeMillis();
+        tree.profundity(tree.getRoot());
+        finish = System.currentTimeMillis();
+        
+        tree.printVars( finish - start );
+        
+        /*
         System.out.println("Grafos");
         grafo = new Graph();
         grafo.CrearGrafo(1000);
         grafo.hayRuta(grafo.grafo, grafo.Gfinal); // recursivo
         grafo.limpiar(); // limpia las marcas
-        grafo.anchura(); // iterativo
+        grafo.anchura(); // iterativo*/
     }
     
 }
