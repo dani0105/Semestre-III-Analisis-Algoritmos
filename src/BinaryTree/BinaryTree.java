@@ -13,7 +13,35 @@ public class BinaryTree {
 
     private Node root;
     
+    private int comparison;
+    private int assignments;
+    
     /**
+     * Limpia las variables de comparaciones y asignaciones.
+     */
+    private void clearVars(){
+        this.comparison = 0;
+        this.assignments = 0;
+    }
+    
+    /**
+     * Imprime las asignaciones y comparaciones realizadas y despues las limpia
+     * @param time Tiempo que se desea imprimir.
+     */
+    public void printVars(long time){
+        System.out.print("Timepo transcurrido: ");
+        System.out.println(time);
+        System.out.print("Comparaciones: ");
+        System.out.println(this.comparison);
+        System.out.print("Asignaciones: ");
+        System.out.println(this.assignments);
+        System.out.println("\n");
+        this.clearVars();
+    }
+    
+    
+    /**
+     * No se Mide
      * Agrega los nodos al arbol.
      * @param value Valor que se le va asignar al nodo.
      * @return TRUE si se inserto correctamente o FALSE si no es así.
@@ -51,22 +79,33 @@ public class BinaryTree {
     }
     
     /**
-     * imprime en profundidad el arbol
+     * imprime en Anchura el arbol
      */
     public void level (){
+        this.comparison++;
         if(this.root == null)
             return;
         
+        this.assignments++;
         List<Node> queue = new ArrayList<>();
+        this.assignments++;
         queue.add(this.root);
+        
         while (!queue.isEmpty()) {   
+            this.comparison++;
+            this.assignments++;
             Node nodo = queue.remove(0);
-            System.out.println("Nodo de ID:"+nodo.getId());
             
-            if(nodo.getLeft() != null)
+            this.comparison++;
+            if(nodo.getLeft() != null){
+                this.assignments++;
                 queue.add(nodo.getLeft());
-            if(nodo.getRight()!= null)
+            }
+            this.comparison++;
+            if(nodo.getRight()!= null){
+                this.assignments++;
                 queue.add(nodo.getRight());
+            }
         }
     }
     
@@ -76,29 +115,34 @@ public class BinaryTree {
      * @return null si llega al fondo o si el parametro que se paso es null.
      */
     public Node profundity(Node aux){
+        this.comparison++;
+        
         if(aux == null)
             return null;
-        System.out.println("Id:"+aux.getId());
-        this.profundity(aux.getLeft());
-        this.profundity(aux.getRight());
-        return null;
-    }
-    
-    /**
-     * Este metodo incia la recursividad
-     * @return Null si llega al final o la raiz es null
-     */
-    public Node profundity(){
-        if(this.root == null)
-            return null;
         
-        System.out.println("Id:"+this.root.getId()+" Right->"+this.root.getRight().getId());
-        this.profundity(this.root.getLeft());
-        this.profundity(this.root.getRight());
+        this.assignments++;
+        
+        this.profundity(aux.getLeft());
+        
+        this.assignments++;
+        
+        this.profundity(aux.getRight());
+        
         return null;
     }
     
     /**
+     * No se Mide
+     * Recupera el node raiz del arbol 
+     * @return Node
+     */
+    public Node getRoot(){
+        return this.root;
+    }
+    
+    
+    /**
+     * No se Mide
      * Llena el arbol binario automaticamente dependiendo de la cantidad de elementos.
      * @param total El numero total de elemento que va tener el arbol.
     */

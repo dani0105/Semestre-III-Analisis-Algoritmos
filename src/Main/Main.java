@@ -25,10 +25,26 @@ public class Main {
         Graph grafo;
         
         tree = new BinaryTree();
-        tree.autoFill(1000);
-        tree.level();
-        tree.profundity();
+        System.out.println("Llenando arbol");
+        tree.autoFill(100000);
+        System.out.println("Ejecutando aalgoritmos");
         
+        
+        
+        long start = System.currentTimeMillis();
+        tree.level();
+        long finish = System.currentTimeMillis();
+        
+        tree.printVars( finish - start);
+        
+        
+        start = System.currentTimeMillis();
+        tree.profundity(tree.getRoot());
+        finish = System.currentTimeMillis();
+        
+        tree.printVars( finish - start );
+        
+        /*
         System.out.println("Grafos");
         grafo = new Graph();
         grafo.CrearGrafo(1000);
@@ -37,8 +53,12 @@ public class Main {
         grafo.asignaciones = 0;
         grafo.comparaciones = 0;
         grafo.limpiar(); // limpia las marcas
+<<<<<<< HEAD
         grafo.anchura(); // iterativo
         System.out.println("Asignaciones "+ grafo.asignaciones + " " + "Comparacines "+ grafo.comparaciones);
+=======
+        grafo.anchura(); // iterativo*/
+>>>>>>> e05bafc8d4bbf03ac331220fdeecb2679e39f2b3
     }
     
 }
