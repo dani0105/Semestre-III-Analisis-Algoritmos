@@ -16,6 +16,8 @@ public class Graph {
     public Vertice grafo;
     public Vertice Gfinal;
     boolean bandera;
+    public int comparaciones = 0;
+    public int asignaciones = 0;
     
     /**
      * inserta un vertice del grafo
@@ -137,19 +139,26 @@ public class Graph {
      * @param origen primer vertice de el grafo
      * @param destino ultimo vertice del grafo
      */
-    public void hayRuta(Vertice origen,Vertice destino){ 
+    public void hayRuta(Vertice origen,Vertice destino){
+        comparaciones++;
         if(origen == null || origen.marca == true){
             return;
         }
         origen.marca = true;
+        asignaciones++;
         System.out.println("Recursivo"+" "+origen.nombre);
         Arco arco = origen.sigA;
+        asignaciones++;
         while(arco !=null){
+            comparaciones++;
+            comparaciones++;
             if(arco.destino == destino){
                 bandera = true;
+                asignaciones++;
             }
             hayRuta(arco.destino, destino);
             arco =arco.sigA;
+            asignaciones++;
         }
     }
     
@@ -189,18 +198,33 @@ public class Graph {
     }
     
     /**
-     * recorre todos los nodos del grafo recursivamente
+     * recorre todos los nodos del grafo iterativamente
      */
     public void anchura(){
         ArrayList<Vertice> queue = new ArrayList<Vertice>();
+        asignaciones++;
         Gfinal.marca = true;
+        asignaciones++;
         queue.add(Gfinal);
+        asignaciones++;
         while(!queue.isEmpty()){
+            comparaciones++;
             Vertice aux = queue.remove(0);
+            asignaciones++;
             System.err.println("iterador"+" "+aux.nombre);
-            if(aux.sigA.destino.marca != true){
+            Arco aux2 = aux.sigA;
+            asignaciones++;
+            while(aux2 != null){
+                comparaciones++;
+                comparaciones++;
+                if(aux.sigA.destino.marca != true){
                 aux.sigA.destino.marca = true;
+                asignaciones++;
                 queue.add(aux.sigA.destino);
+                asignaciones++;
+                }
+                aux2 = aux2.sigA;
+                asignaciones++;
             }
         }
     }

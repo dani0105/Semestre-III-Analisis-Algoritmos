@@ -33,8 +33,12 @@ public class Main {
         grafo = new Graph();
         grafo.CrearGrafo(1000);
         grafo.hayRuta(grafo.grafo, grafo.Gfinal); // recursivo
+        System.out.println("Asignaciones "+ grafo.asignaciones+ " " + "Comparacines "+ grafo.comparaciones);
+        grafo.asignaciones = 0;
+        grafo.comparaciones = 0;
         grafo.limpiar(); // limpia las marcas
         grafo.anchura(); // iterativo
+        System.out.println("Asignaciones "+ grafo.asignaciones + " " + "Comparacines "+ grafo.comparaciones);
     }
     
 }
