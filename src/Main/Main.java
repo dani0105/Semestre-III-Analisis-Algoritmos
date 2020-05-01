@@ -44,7 +44,7 @@ public class Main {
         
         tree.printVars( finish - start );
         
-        /*
+        
         System.out.println("Grafos");
         grafo = new Graph();
         grafo.CrearGrafo(1000);
@@ -53,12 +53,8 @@ public class Main {
         grafo.asignaciones = 0;
         grafo.comparaciones = 0;
         grafo.limpiar(); // limpia las marcas
-<<<<<<< HEAD
         grafo.anchura(); // iterativo
         System.out.println("Asignaciones "+ grafo.asignaciones + " " + "Comparacines "+ grafo.comparaciones);
-=======
-        grafo.anchura(); // iterativo*/
->>>>>>> e05bafc8d4bbf03ac331220fdeecb2679e39f2b3
     }
     
 }

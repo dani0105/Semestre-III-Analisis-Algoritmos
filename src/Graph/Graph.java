@@ -145,12 +145,8 @@ public class Graph {
             return;
         }
         origen.marca = true;
-<<<<<<< HEAD
         asignaciones++;
         System.out.println("Recursivo"+" "+origen.nombre);
-=======
-       
->>>>>>> e05bafc8d4bbf03ac331220fdeecb2679e39f2b3
         Arco arco = origen.sigA;
         asignaciones++;
         while(arco !=null){
@@ -214,7 +210,6 @@ public class Graph {
         while(!queue.isEmpty()){
             comparaciones++;
             Vertice aux = queue.remove(0);
-<<<<<<< HEAD
             asignaciones++;
             System.err.println("iterador"+" "+aux.nombre);
             Arco aux2 = aux.sigA;
@@ -223,9 +218,6 @@ public class Graph {
                 comparaciones++;
                 comparaciones++;
                 if(aux.sigA.destino.marca != true){
-=======
-            if(aux.sigA.destino.marca != true){
->>>>>>> e05bafc8d4bbf03ac331220fdeecb2679e39f2b3
                 aux.sigA.destino.marca = true;
                 asignaciones++;
                 queue.add(aux.sigA.destino);
