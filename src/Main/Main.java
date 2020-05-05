@@ -15,7 +15,7 @@ public class Main {
         tree = new BinaryTree();
         System.out.println("Llenando arbol");
         tree.autoFill(100000);
-        System.out.println("Ejecutando aalgoritmos");
+        System.out.println("Ejecutando algoritmos");
 
         long start = System.currentTimeMillis();
         tree.level();
@@ -31,14 +31,14 @@ public class Main {
 
         System.out.println("Grafos");
         grafo = new Graph();
-        grafo.CrearGrafo(1000);
-        grafo.hayRuta(grafo.grafo, grafo.Gfinal); // recursivo
-        System.out.println("Asignaciones " + grafo.asignaciones + " " + "Comparacines " + grafo.comparaciones);
-        grafo.asignaciones = 0;
-        grafo.comparaciones = 0;
-        grafo.limpiar(); // limpia las marcas
+        grafo.createGraph(1000);
+        grafo.searchRoute(grafo.firstVertex, grafo.finalG); // recursivo
+        System.out.println("Asignaciones " + grafo.assignments + " " + "Comparacines " + grafo.comparisons);
+        grafo.assignments = 0;
+        grafo.comparisons = 0;
+        grafo.clearMarks(); // limpia las marcas
         grafo.anchura(); // iterativo
-        System.out.println("Asignaciones " + grafo.asignaciones + " " + "Comparacines " + grafo.comparaciones);
+        System.out.println("Asignaciones " + grafo.assignments + " " + "Comparacines " + grafo.comparisons);
     }
 
 }

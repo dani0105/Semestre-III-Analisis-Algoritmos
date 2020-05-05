@@ -13,14 +13,14 @@ public class BinaryTree {
 
     private Node root;
 
-    private int comparison;
+    private int comparisons;
     private int assignments;
 
     /**
      * Limpia las variables de comparaciones y asignaciones.
      */
     private void clearVars() {
-        this.comparison = 0;
+        this.comparisons = 0;
         this.assignments = 0;
     }
 
@@ -33,7 +33,7 @@ public class BinaryTree {
         System.out.print("Timepo transcurrido: ");
         System.out.println(time);
         System.out.print("Comparaciones: ");
-        System.out.println(this.comparison);
+        System.out.println(this.comparisons);
         System.out.print("Asignaciones: ");
         System.out.println(this.assignments);
         System.out.println("\n");
@@ -41,7 +41,7 @@ public class BinaryTree {
     }
 
     /**
-     * No se Mide Agrega los nodos al arbol.
+     * No se Mide. Agrega los nodos al arbol.
      *
      * @param value Valor que se le va asignar al nodo.
      * @return TRUE si se inserto correctamente o FALSE si no es así.
@@ -79,10 +79,10 @@ public class BinaryTree {
     }
 
     /**
-     * imprime en Anchura el arbol
+     * Imprime en anchura el arbol.
      */
     public void level() {
-        this.comparison++;
+        this.comparisons++;
         if (this.root == null) {
             return;
         }
@@ -93,16 +93,16 @@ public class BinaryTree {
         queue.add(this.root);
 
         while (!queue.isEmpty()) {
-            this.comparison++;
+            this.comparisons++;
             this.assignments++;
             Node nodo = queue.remove(0);
 
-            this.comparison++;
+            this.comparisons++;
             if (nodo.getLeft() != null) {
                 this.assignments++;
                 queue.add(nodo.getLeft());
             }
-            this.comparison++;
+            this.comparisons++;
             if (nodo.getRight() != null) {
                 this.assignments++;
                 queue.add(nodo.getRight());
@@ -117,7 +117,7 @@ public class BinaryTree {
      * @return null si llega al fondo o si el parametro que se paso es null.
      */
     public Node profundity(Node aux) {
-        this.comparison++;
+        this.comparisons++;
 
         if (aux == null) {
             return null;
@@ -135,7 +135,7 @@ public class BinaryTree {
     }
 
     /**
-     * No se Mide Recupera el node raiz del arbol
+     * No se Mide. Recupera el node raiz del arbol
      *
      * @return Node
      */
@@ -144,7 +144,7 @@ public class BinaryTree {
     }
 
     /**
-     * No se Mide Llena el arbol binario automaticamente dependiendo de la
+     * No se Mide. Llena el arbol binario automaticamente dependiendo de la
      * cantidad de elementos.
      *
      * @param total El numero total de elemento que va tener el arbol.
@@ -159,12 +159,13 @@ public class BinaryTree {
         Random random = new Random();
 
         while (numbers.size() > 1) {
-            // Elegimos un índice al azar, entre 0 y el número de cartas que quedan por sacar
+            // Elegimos un índice al azar, entre 0 y el número de elementos 
+            // que quedan por sacar
             int randomIndex = random.nextInt(numbers.size());
 
             this.add(numbers.get(randomIndex));
 
-            // Y eliminamos la carta del mazo (la borramos de la lista)
+            // Y eliminamos el elemento de la lista
             numbers.remove(randomIndex);
         }
     }

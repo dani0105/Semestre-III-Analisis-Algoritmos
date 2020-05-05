@@ -2,91 +2,94 @@ package Graph;
 
 import java.util.ArrayList;
 
+/**
+ * Una clase que representa un grafo interconectado por varios {@link Arc}.
+ */
 public class Graph {
 
-    //Algunas variables utilizadas
-    public Vertice grafo;
-    public Vertice Gfinal;
-    boolean bandera;
-    public int comparaciones = 0;
-    public int asignaciones = 0;
+    // Algunas variables utilizadas
+    public Vertex firstVertex;
+    public Vertex finalG;
+    boolean flag;
+    public int comparisons;
+    public int assignments;
 
     /**
-     * inserta un vertice del grafo
+     * Inserta un {@link Vertex} al grafo.
      *
-     * @param nombre el nombre es el numero que se le asigna a cada vertice
-     * @return Insertado si todo salio bien en caso contrario un strig sin nada
+     * @param name el nombre es el numero que se le asigna a cada {@link Vertex}
+     * @return insertado si todo salio bien en caso contrario un string sin nada
      */
-    public String insertarVertices(int nombre) {
-        Vertice nuevo = new Vertice(nombre, false);
-        if (grafo == null) {
-            grafo = nuevo;
-            Gfinal = nuevo;
+    public String addVertex(int name) {
+        Vertex newVertex = new Vertex(name);
+        if (firstVertex == null) {
+            firstVertex = newVertex;
+            finalG = newVertex;
 
             return "Insertado";
         }
-        nuevo.sigV = grafo;
-        grafo.antV = nuevo;
-        grafo = nuevo;
+        newVertex.nextVertex = firstVertex;
+        firstVertex.prevVertex = newVertex;
+        firstVertex = newVertex;
 
         return "";
     }
 
     /**
-     * Busca si existe un arco que conecte dos vertices
+     * Busca si existe un {@link Arc} que conecte dos vertices.
      *
-     * @param origen vertice de origen
-     * @param destino vertice de destino
-     * @return retorna el arco encontrado o null si no existe
+     * @param source {@link Vertex} de origen
+     * @param destination {@link Vertex} de destino
+     * @return retorna el {@link Arc} encontrado o null si no existe
      */
-    public Arco buscar(Vertice origen, Vertice destino) {
-        if (origen.sigA != null) {
-            Arco aux = origen.sigA;
+    public Arc searchArc(Vertex source, Vertex destination) {
+        if (source.nextArc != null) {
+            Arc aux = source.nextArc;
             while (aux != null) {
-                if (aux.destino == destino) {
+                if (aux.destination == destination) {
                     return aux;
                 }
-                aux = aux.sigA;
+                aux = aux.nextArc;
             }
         }
         return null;
     }
 
     /**
-     * Busca un vertice
+     * Busca un {@link Vertex} en el Grafo.
      *
-     * @param nombre el nombre del vertice a buscar
-     * @return retorna el vertice encontrado o null si este no existe
+     * @param name el nombre del {@link Vertex} a buscar
+     * @return retorna el {@link Vertex} encontrado o null si este no existe
      */
-    public Vertice buscar(int nombre) {
-        Vertice aux = grafo;
+    public Vertex searchVertex(int name) {
+        Vertex aux = firstVertex;
         while (aux != null) {
-            if (aux.nombre == nombre) {
+            if (aux.name == name) {
                 return aux;
             }
-            aux = aux.sigV;
+            aux = aux.nextVertex;
         }
         return null;
     }
 
     /**
-     * Inserta un Arco de un vertice a otro
+     * Inserta un {@link Arc} de un {@link Vertex} a otro.
      *
-     * @param origen vertice de origen
-     * @param destino vertice de destino
-     * @return retorna insertado si todo salio bien o otro string en caso
-     * contratio
+     * @param source {@link Vertex} de origen
+     * @param destination {@link Vertex} de destino
+     * @return retorna insertado si todo salió bien o otro string en caso
+     * contrario
      */
-    public String insertarArco(Vertice origen, Vertice destino) {
-        if (buscar(origen, destino) == null) {
-            Arco nuevo = new Arco();
-            nuevo.destino = destino;
-            if (origen.sigA == null) {
-                origen.sigA = nuevo;
+    public String addArc(Vertex source, Vertex destination) {
+        if (searchArc(source, destination) == null) {
+            Arc newArc = new Arc();
+            newArc.destination = destination;
+            if (source.nextArc == null) {
+                source.nextArc = newArc;
             } else {
-                nuevo.sigA = origen.sigA;
-                origen.sigA.antA = nuevo;
-                origen.sigA = nuevo;
+                newArc.nextArc = source.nextArc;
+                source.nextArc.prevArc = newArc;
+                source.nextArc = newArc;
             }
             return "Insertado";
         }
@@ -94,19 +97,19 @@ public class Graph {
     }
 
     /**
-     * Verificar cuantos arcos tiene cada vertice
+     * Cuenta los {@link Arc} que tiene cada {@link Vertex}.
      *
-     * @param inicio verrtice al que se le cuentan los arcos
-     * @return la cantidad de arcos
+     * @param inicio {@link Vertex} al que se le cuentan los arcos
+     * @return la cantidad de {@link Arcos}
      */
-    public int ContarArcos(Vertice inicio) {
+    public int arcsCount(Vertex inicio) {
         int cantidad = 0;
-        Vertice vertice = buscar(inicio.nombre);
-        if (vertice.sigA != null) {
-            Arco aux = vertice.sigA;
+        Vertex vertice = searchVertex(inicio.name);
+        if (vertice.nextArc != null) {
+            Arc aux = vertice.nextArc;
             while (aux != null) {
                 cantidad = cantidad + 1;
-                aux = aux.sigA;
+                aux = aux.nextArc;
             }
             return cantidad;
         }
@@ -114,121 +117,122 @@ public class Graph {
     }
 
     /**
-     * Metodo que crea los vertices y hace las conexiones entre ellos para hacer
-     * un grafo conexo
+     * Método que crea los {@link Vertex} y hace las conexiones entre ellos para
+     * hacer un grafo conexo.
      *
-     * @param cantidad cantidad de vertices a insertar
-     * @return true si todo salio bien
+     * @param amount cantidad de vertices a insertar
+     * @return true si todo salió bien
      */
-    public boolean CrearGrafo(int cantidad) {
-        for (int i = 1; i <= cantidad; i++) {
-            insertarVertices(i);
+    public boolean createGraph(int amount) {
+        for (int i = 1; i <= amount; i++) {
+            addVertex(i);
         }
-        Vertice aux = grafo;
+        Vertex aux = firstVertex;
         while (aux != null) {
-            insertarArco(aux, aux.sigV);
-            if (Gfinal == aux) {
-                insertarArco(aux, grafo);
+            addArc(aux, aux.nextVertex);
+            if (finalG == aux) {
+                addArc(aux, firstVertex);
             }
-            aux = aux.sigV;
+            aux = aux.nextVertex;
         }
         return true;
     }
 
     /**
-     * Busca recursivamente una ruta de un vertice a otro, por o que si se pone
-     * el primero y el segundo pasa por todos los vertices creados
+     * Busca recursivamente una ruta de un {@link Vertex} a otro, por o que si
+     * se pone el primero y el segundo pasa por todos los {@link Vertex}
+     * creados.
      *
-     * @param origen primer vertice de el grafo
-     * @param destino ultimo vertice del grafo
+     * @param source primer {@link Vertex} de el grafo
+     * @param destination último {@link Vertex} del grafo
      */
-    public void hayRuta(Vertice origen, Vertice destino) {
-        comparaciones++;
-        if (origen == null || origen.marca == true) {
+    public void searchRoute(Vertex source, Vertex destination) {
+        comparisons++;
+        if (source == null || source.mark == true) {
             return;
         }
-        origen.marca = true;
-        asignaciones++;
-        System.out.println("Recursivo" + " " + origen.nombre);
-        Arco arco = origen.sigA;
-        asignaciones++;
-        while (arco != null) {
-            comparaciones++;
-            comparaciones++;
-            if (arco.destino == destino) {
-                bandera = true;
-                asignaciones++;
+        source.mark = true;
+        assignments++;
+        System.out.println("Recursivo" + " " + source.name);
+        Arc arc = source.nextArc;
+        assignments++;
+        while (arc != null) {
+            comparisons++;
+            comparisons++;
+            if (arc.destination == destination) {
+                flag = true;
+                assignments++;
             }
-            hayRuta(arco.destino, destino);
-            arco = arco.sigA;
-            asignaciones++;
+            searchRoute(arc.destination, destination);
+            arc = arc.nextArc;
+            assignments++;
         }
     }
 
     /**
-     * verificar que el grafo es conexo
+     * Verificar que el grafo es conexo.
      *
      * @return true si lo es o false si no lo es
      */
     public boolean grafoConexo() {
-        Vertice aux = grafo;
+        Vertex aux = firstVertex;
         while (aux != null) {
-            Vertice aux2 = grafo;
+            Vertex aux2 = firstVertex;
             while (aux2 != null) {
-                bandera = false;
+                flag = false;
                 if (aux2 != aux) {
-                    hayRuta(aux, aux2);
-                    limpiar();
-                    if (bandera != true) {
+                    searchRoute(aux, aux2);
+                    clearMarks();
+                    if (flag != true) {
                         return false;
                     }
                 }
-                aux2 = aux2.sigV;
+                aux2 = aux2.nextVertex;
             }
-            aux = aux.sigV;
+            aux = aux.nextVertex;
         }
         return true;
     }
 
     /**
-     * limpia las marcas de todos los vertices
+     * Limpia las marcas de todos los vertices.
      */
-    public void limpiar() {
-        Vertice aux = grafo;
+    public void clearMarks() {
+        Vertex aux = firstVertex;
         while (aux != null) {
-            aux.marca = false;
-            aux = aux.sigV;
+            aux.mark = false;
+            aux = aux.nextVertex;
         }
     }
 
     /**
-     * recorre todos los nodos del grafo iterativamente
+     * Recorre todos los nodos del grafo iterativamente.
      */
     public void anchura() {
-        ArrayList<Vertice> queue = new ArrayList<Vertice>();
-        asignaciones++;
-        Gfinal.marca = true;
-        asignaciones++;
-        queue.add(Gfinal);
-        asignaciones++;
+        ArrayList<Vertex> queue = new ArrayList<>();
+        assignments++;
+        finalG.mark = true;
+        assignments++;
+        queue.add(finalG);
+        assignments++;
         while (!queue.isEmpty()) {
-            comparaciones++;
-            Vertice aux = queue.remove(0);
-            asignaciones++;
-            System.err.println("iterador" + " " + aux.nombre);
-            Arco aux2 = aux.sigA;
-            asignaciones++;
+            comparisons++;
+            Vertex aux = queue.remove(0);
+            assignments++;
+            System.err.println("iterador" + " " + aux.name);
+            Arc aux2 = aux.nextArc;
+            assignments++;
             while (aux2 != null) {
-                comparaciones++;
-                comparaciones++;
-                if (aux.sigA.destino.marca != true) {
-                    aux.sigA.destino.marca = true;
-                    asignaciones++;
-                    queue.add(aux.sigA.destino);
-                    asignaciones++;
+                comparisons++;
+                comparisons++;
+                if (aux.nextArc.destination.mark != true) {
+                    aux.nextArc.destination.mark = true;
+                    assignments++;
+                    queue.add(aux.nextArc.destination);
+                    assignments++;
                 }
-                aux2 = aux2.sigA;
-                asignaciones++;
+                aux2 = aux2.nextArc;
+                assignments++;
             }
         }
     }
