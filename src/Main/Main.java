@@ -37,7 +37,7 @@ public class Main {
         grafo.assignments = 0;
         grafo.comparisons = 0;
         grafo.clearMarks(); // limpia las marcas
-        grafo.anchura(); // iterativo
+        grafo.widthPath();// iterativo
         System.out.println("Asignaciones " + grafo.assignments + " " + "Comparacines " + grafo.comparisons);
     }
 

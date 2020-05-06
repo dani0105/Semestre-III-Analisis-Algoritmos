@@ -9,7 +9,7 @@ public class Vertex {
     Vertex prevVertex;
     public int name;
     boolean mark;
-    public Arc nextArc;
+    public Arc firstArc;
 
     /**
      * Crea un nuevo a vertice.

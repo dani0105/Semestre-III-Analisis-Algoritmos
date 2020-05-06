@@ -43,8 +43,8 @@ public class Graph {
      * @return retorna el {@link Arc} encontrado o null si no existe
      */
     public Arc searchArc(Vertex source, Vertex destination) {
-        if (source.nextArc != null) {
-            Arc aux = source.nextArc;
+        if (source.firstArc != null) {
+            Arc aux = source.firstArc;
             while (aux != null) {
                 if (aux.destination == destination) {
                     return aux;
@@ -84,12 +84,12 @@ public class Graph {
         if (searchArc(source, destination) == null) {
             Arc newArc = new Arc();
             newArc.destination = destination;
-            if (source.nextArc == null) {
-                source.nextArc = newArc;
+            if (source.firstArc == null) {
+                source.firstArc = newArc;
             } else {
-                newArc.nextArc = source.nextArc;
-                source.nextArc.prevArc = newArc;
-                source.nextArc = newArc;
+                newArc.nextArc = source.firstArc;
+                source.firstArc.prevArc = newArc;
+                source.firstArc = newArc;
             }
             return "Insertado";
         }
@@ -105,8 +105,8 @@ public class Graph {
     public int arcsCount(Vertex inicio) {
         int cantidad = 0;
         Vertex vertice = searchVertex(inicio.name);
-        if (vertice.nextArc != null) {
-            Arc aux = vertice.nextArc;
+        if (vertice.firstArc != null) {
+            Arc aux = vertice.firstArc;
             while (aux != null) {
                 cantidad = cantidad + 1;
                 aux = aux.nextArc;
@@ -154,7 +154,7 @@ public class Graph {
         source.mark = true;
         assignments++;
         System.out.println("Recursivo" + " " + source.name);
-        Arc arc = source.nextArc;
+        Arc arc = source.firstArc;
         assignments++;
         while (arc != null) {
             comparisons++;
@@ -208,32 +208,24 @@ public class Graph {
     /**
      * Recorre todos los nodos del grafo iterativamente.
      */
-    public void anchura() {
-        ArrayList<Vertex> queue = new ArrayList<>();
+    public void widthPath() {
+        Vertex tempVertex = firstVertex;
         assignments++;
-        finalG.mark = true;
-        assignments++;
-        queue.add(finalG);
-        assignments++;
-        while (!queue.isEmpty()) {
+
+        while (tempVertex != null) {
             comparisons++;
-            Vertex aux = queue.remove(0);
+            System.err.println("iterador" + " " + tempVertex.name);
+
+            Arc tempArc = tempVertex.firstArc;
             assignments++;
-            System.err.println("iterador" + " " + aux.name);
-            Arc aux2 = aux.nextArc;
-            assignments++;
-            while (aux2 != null) {
+            while (tempArc != null) {
                 comparisons++;
-                comparisons++;
-                if (aux.nextArc.destination.mark != true) {
-                    aux.nextArc.destination.mark = true;
-                    assignments++;
-                    queue.add(aux.nextArc.destination);
-                    assignments++;
-                }
-                aux2 = aux2.nextArc;
+                tempArc = tempArc.nextArc;
                 assignments++;
             }
+
+            tempVertex = tempVertex.nextVertex;
+            assignments++;
         }
     }
 
