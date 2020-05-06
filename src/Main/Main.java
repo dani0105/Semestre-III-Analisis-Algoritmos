@@ -12,23 +12,23 @@ public class Main {
         BinaryTree tree;
         Graph grafo;
 
+        // Ejecucion de los arboles
         tree = new BinaryTree();
-        System.out.println("Llenando arbol");
-        tree.autoFill(100000);
-        System.out.println("Ejecutando algoritmos");
+        tree.autoFill(100000); // se llena el arbol
 
         long start = System.currentTimeMillis();
         tree.level();
         long finish = System.currentTimeMillis();
-
         tree.printVars(finish - start);
 
+        
         start = System.currentTimeMillis();
         tree.profundity(tree.getRoot());
         finish = System.currentTimeMillis();
-
         tree.printVars(finish - start);
-
+        
+        // Ejecucion de los grafos
+        
         System.out.println("Grafos");
         grafo = new Graph();
         grafo.createGraph(1000);

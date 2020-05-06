@@ -15,6 +15,7 @@ public class BinaryTree {
 
     private int comparisons;
     private int assignments;
+    private int lines;
 
     /**
      * Limpia las variables de comparaciones y asignaciones.
@@ -22,6 +23,7 @@ public class BinaryTree {
     private void clearVars() {
         this.comparisons = 0;
         this.assignments = 0;
+        this.lines = 0;
     }
 
     /**
@@ -29,13 +31,15 @@ public class BinaryTree {
      *
      * @param time Tiempo que se desea imprimir.
      */
-    public void printVars(long time) {
+    public void printVars(float time) {
         System.out.print("Timepo transcurrido: ");
-        System.out.println(time);
+        System.out.printf("Tiempo = %.3f S\n",time/1000);
         System.out.print("Comparaciones: ");
         System.out.println(this.comparisons);
         System.out.print("Asignaciones: ");
         System.out.println(this.assignments);
+        System.out.print("Lineas de codigo: ");
+        System.out.println(this.lines);
         System.out.println("\n");
         this.clearVars();
     }
@@ -78,33 +82,49 @@ public class BinaryTree {
         }
     }
 
+    
+    
     /**
      * Imprime en anchura el arbol.
      */
     public void level() {
+        
+        this.lines++;
         this.comparisons++;
         if (this.root == null) {
+            this.lines++;
             return;
         }
 
         this.assignments++;
+        this.lines++;
         List<Node> queue = new ArrayList<>();
+        
         this.assignments++;
+        this.lines++;
         queue.add(this.root);
 
         while (!queue.isEmpty()) {
+            this.lines++;
             this.comparisons++;
+            
             this.assignments++;
+            this.lines++;
             Node nodo = queue.remove(0);
 
             this.comparisons++;
+            this.lines++;
             if (nodo.getLeft() != null) {
                 this.assignments++;
+                this.lines++;
                 queue.add(nodo.getLeft());
             }
+            
+            this.lines++;
             this.comparisons++;
             if (nodo.getRight() != null) {
                 this.assignments++;
+                this.lines++;
                 queue.add(nodo.getRight());
             }
         }
@@ -117,23 +137,29 @@ public class BinaryTree {
      * @return null si llega al fondo o si el parametro que se paso es null.
      */
     public Node profundity(Node aux) {
+        
         this.comparisons++;
-
+        this.lines++;
         if (aux == null) {
+            this.lines++;
             return null;
         }
 
         this.assignments++;
-
+        this.lines++;
         this.profundity(aux.getLeft());
 
         this.assignments++;
-
+        this.lines++;
         this.profundity(aux.getRight());
-
+        
+        this.lines++;
         return null;
     }
 
+    
+    
+    
     /**
      * No se Mide. Recupera el node raiz del arbol
      *
