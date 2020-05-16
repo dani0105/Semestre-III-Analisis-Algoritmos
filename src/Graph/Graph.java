@@ -13,6 +13,7 @@ public class Graph {
     boolean flag;
     public int comparisons;
     public int assignments;
+    private int lines;
 
     /**
      * Inserta un {@link Vertex} al grafo.
@@ -148,23 +149,31 @@ public class Graph {
      */
     public void searchRoute(Vertex source, Vertex destination) {
         comparisons++;
+        lines++;
         if (source == null || source.mark == true) {
+            lines++;
             return;
         }
         source.mark = true;
+        lines++;
         assignments++;
-        System.out.println("Recursivo" + " " + source.name);
         Arc arc = source.firstArc;
+        lines++;
         assignments++;
         while (arc != null) {
+            lines++;
             comparisons++;
             comparisons++;
             if (arc.destination == destination) {
+                lines++;
                 flag = true;
+                lines++;
                 assignments++;
             }
             searchRoute(arc.destination, destination);
+            lines++;
             arc = arc.nextArc;
+            lines++;
             assignments++;
         }
     }
@@ -209,24 +218,40 @@ public class Graph {
      * Recorre todos los nodos del grafo iterativamente.
      */
     public void widthPath() {
+        lines++;
         Vertex tempVertex = firstVertex;
         assignments++;
 
         while (tempVertex != null) {
+            lines++;
             comparisons++;
-            System.err.println("iterador" + " " + tempVertex.name);
 
             Arc tempArc = tempVertex.firstArc;
+            lines++;
             assignments++;
             while (tempArc != null) {
+                lines++;
                 comparisons++;
                 tempArc = tempArc.nextArc;
+                lines++;
                 assignments++;
             }
 
             tempVertex = tempVertex.nextVertex;
+            lines++;
             assignments++;
         }
     }
 
+    public void printVars(float time) {
+        System.out.print("Timepo transcurrido: ");
+        System.out.printf("Tiempo = %.3f S\n",time/1000);
+        System.out.print("Comparaciones: ");
+        System.out.println(this.comparisons);
+        System.out.print("Asignaciones: ");
+        System.out.println(this.assignments);
+        System.out.print("Lineas de codigo: ");
+        System.out.println(this.lines);
+        System.out.println("\n");
+    }
 }

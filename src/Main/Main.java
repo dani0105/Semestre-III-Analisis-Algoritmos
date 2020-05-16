@@ -28,17 +28,26 @@ public class Main {
         tree.printVars(finish - start);
         
         // Ejecucion de los grafos
-        
         System.out.println("Grafos");
         grafo = new Graph();
-        grafo.createGraph(1000);
-        grafo.searchRoute(grafo.firstVertex, grafo.finalG); // recursivo
-        System.out.println("Asignaciones " + grafo.assignments + " " + "Comparacines " + grafo.comparisons);
+        grafo.createGraph(1000); //Se llena el grafo
+        
+        // Recursivo
+        start = System.currentTimeMillis();
+        grafo.searchRoute(grafo.firstVertex, grafo.finalG); 
+        finish = System.currentTimeMillis();
+        grafo.printVars(finish - start);
+        
         grafo.assignments = 0;
         grafo.comparisons = 0;
+        
         grafo.clearMarks(); // limpia las marcas
-        grafo.widthPath();// iterativo
-        System.out.println("Asignaciones " + grafo.assignments + " " + "Comparacines " + grafo.comparisons);
+        
+        // Iterativo
+        start = System.currentTimeMillis();
+        grafo.widthPath();
+        finish = System.currentTimeMillis();
+        grafo.printVars(finish - start);
     }
 
 }
