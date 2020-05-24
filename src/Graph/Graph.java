@@ -129,11 +129,15 @@ public class Graph {
             addVertex(i);
         }
         Vertex aux = firstVertex;
+        Vertex aux2 = firstVertex;
         while (aux != null) {
-            addArc(aux, aux.nextVertex);
-            if (finalG == aux) {
-                addArc(aux, firstVertex);
+            while (aux2 != null){
+                if (aux != aux2){
+                    addArc(aux, aux2);
+                }
+                aux2 = aux2.nextVertex;
             }
+            aux2 = firstVertex;
             aux = aux.nextVertex;
         }
         return true;

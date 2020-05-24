@@ -31,6 +31,7 @@ public class Main {
         System.out.println("Grafos");
         grafo = new Graph();
         grafo.createGraph(1000); //Se llena el grafo
+        System.out.println(grafo.arcsCount(grafo.firstVertex));// cantidad de arcos que tiene el primer vertice  
         
         // Recursivo
         start = System.currentTimeMillis();

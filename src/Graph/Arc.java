@@ -6,7 +6,7 @@ package Graph;
  */
 public class Arc {
 
-    Arc nextArc;
+    public Arc nextArc;
     Arc prevArc;
     public Vertex destination;
 
