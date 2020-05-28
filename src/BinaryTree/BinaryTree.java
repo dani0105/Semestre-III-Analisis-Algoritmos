@@ -33,7 +33,7 @@ public class BinaryTree {
      */
     public void printVars(float time) {
         System.out.print("Timepo transcurrido: ");
-        System.out.printf("Tiempo = %.3f S\n",time/1000);
+        System.out.printf("Tiempo = %.3f S\n", time / 1000);
         System.out.print("Comparaciones: ");
         System.out.println(this.comparisons);
         System.out.print("Asignaciones: ");
@@ -82,13 +82,11 @@ public class BinaryTree {
         }
     }
 
-    
-    
     /**
      * Imprime en anchura el arbol.
      */
     public void level() {
-        
+
         this.lines++;
         this.comparisons++;
         if (this.root == null) {
@@ -99,7 +97,7 @@ public class BinaryTree {
         this.assignments++;
         this.lines++;
         List<Node> queue = new ArrayList<>();
-        
+
         this.assignments++;
         this.lines++;
         queue.add(this.root);
@@ -107,7 +105,7 @@ public class BinaryTree {
         while (!queue.isEmpty()) {
             this.lines++;
             this.comparisons++;
-            
+
             this.assignments++;
             this.lines++;
             Node nodo = queue.remove(0);
@@ -119,7 +117,7 @@ public class BinaryTree {
                 this.lines++;
                 queue.add(nodo.getLeft());
             }
-            
+
             this.lines++;
             this.comparisons++;
             if (nodo.getRight() != null) {
@@ -137,7 +135,7 @@ public class BinaryTree {
      * @return null si llega al fondo o si el parametro que se paso es null.
      */
     public Node profundity(Node aux) {
-        
+
         this.comparisons++;
         this.lines++;
         if (aux == null) {
@@ -152,14 +150,11 @@ public class BinaryTree {
         this.assignments++;
         this.lines++;
         this.profundity(aux.getRight());
-        
+
         this.lines++;
         return null;
     }
 
-    
-    
-    
     /**
      * No se Mide. Recupera el node raiz del arbol
      *

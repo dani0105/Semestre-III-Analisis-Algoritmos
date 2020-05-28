@@ -1,7 +1,5 @@
 package Graph;
 
-import java.util.ArrayList;
-
 /**
  * Una clase que representa un grafo interconectado por varios {@link Arc}.
  */
@@ -9,23 +7,20 @@ public class Graph {
 
     // Algunas variables utilizadas
     public Vertex firstVertex;
-    public Vertex finalG;
-    boolean flag;
-    public int comparisons;
-    public int assignments;
+    public long comparisons;
+    public long assignments;
     private int lines;
 
     /**
      * Inserta un {@link Vertex} al grafo.
      *
      * @param name el nombre es el numero que se le asigna a cada {@link Vertex}
-     * @return insertado si todo salio bien en caso contrario un string sin nada
+     * @return insertado si todo salió bien en caso contrario un string sin nada
      */
     public String addVertex(int name) {
         Vertex newVertex = new Vertex(name);
         if (firstVertex == null) {
             firstVertex = newVertex;
-            finalG = newVertex;
 
             return "Insertado";
         }
@@ -78,23 +73,17 @@ public class Graph {
      *
      * @param source {@link Vertex} de origen
      * @param destination {@link Vertex} de destino
-     * @return retorna insertado si todo salió bien o otro string en caso
-     * contrario
      */
-    public String addArc(Vertex source, Vertex destination) {
-        if (searchArc(source, destination) == null) {
-            Arc newArc = new Arc();
-            newArc.destination = destination;
-            if (source.firstArc == null) {
-                source.firstArc = newArc;
-            } else {
-                newArc.nextArc = source.firstArc;
-                source.firstArc.prevArc = newArc;
-                source.firstArc = newArc;
-            }
-            return "Insertado";
+    public void addArc(Vertex source, Vertex destination) {
+        Arc newArc = new Arc();
+        newArc.destination = destination;
+        if (source.firstArc == null) {
+            source.firstArc = newArc;
+        } else {
+            newArc.nextArc = source.firstArc;
+            source.firstArc.prevArc = newArc;
+            source.firstArc = newArc;
         }
-        return "No se pueden repetir arcos";
     }
 
     /**
@@ -112,9 +101,8 @@ public class Graph {
                 cantidad = cantidad + 1;
                 aux = aux.nextArc;
             }
-            return cantidad;
         }
-        return 00;
+        return cantidad;
     }
 
     /**
@@ -131,8 +119,8 @@ public class Graph {
         Vertex aux = firstVertex;
         Vertex aux2 = firstVertex;
         while (aux != null) {
-            while (aux2 != null){
-                if (aux != aux2){
+            while (aux2 != null) {
+                if (aux != aux2) {
                     addArc(aux, aux2);
                 }
                 aux2 = aux2.nextVertex;
@@ -144,73 +132,51 @@ public class Graph {
     }
 
     /**
-     * Busca recursivamente una ruta de un {@link Vertex} a otro, por o que si
-     * se pone el primero y el segundo pasa por todos los {@link Vertex}
-     * creados.
-     *
-     * @param source primer {@link Vertex} de el grafo
-     * @param destination último {@link Vertex} del grafo
+     * Ejecuta el recorrido en profundidad.
      */
-    public void searchRoute(Vertex source, Vertex destination) {
-        comparisons++;
-        lines++;
-        if (source == null || source.mark == true) {
-            lines++;
-            return;
-        }
-        source.mark = true;
-        lines++;
-        assignments++;
-        Arc arc = source.firstArc;
-        lines++;
-        assignments++;
-        while (arc != null) {
-            lines++;
-            comparisons++;
-            comparisons++;
-            if (arc.destination == destination) {
-                lines++;
-                flag = true;
-                lines++;
-                assignments++;
-            }
-            searchRoute(arc.destination, destination);
-            lines++;
-            arc = arc.nextArc;
-            lines++;
-            assignments++;
-        }
+    public void depthRun() {
+        clearMarks();
+        depthRunHelper(firstVertex);
     }
 
     /**
-     * Verificar que el grafo es conexo.
+     * Se encarga de realizar el recorrido en profundidad.
      *
-     * @return true si lo es o false si no lo es
+     * @param vertex el {@link Vertex} que se está recorriendo
      */
-    public boolean grafoConexo() {
-        Vertex aux = firstVertex;
-        while (aux != null) {
-            Vertex aux2 = firstVertex;
-            while (aux2 != null) {
-                flag = false;
-                if (aux2 != aux) {
-                    searchRoute(aux, aux2);
-                    clearMarks();
-                    if (flag != true) {
-                        return false;
-                    }
-                }
-                aux2 = aux2.nextVertex;
-            }
-            aux = aux.nextVertex;
+    private void depthRunHelper(Vertex vertex) {
+        comparisons += 2;
+        lines++;
+        if ((vertex == null) || (vertex.mark)) {
+            lines++;
+            return;
         }
-        return true;
+        assignments++;
+        lines++;
+        vertex.mark = true;
+
+        assignments++;
+        lines++;
+        Arc arc = vertex.firstArc;
+
+        lines++;
+        comparisons++;
+        while (arc != null) {
+            comparisons++;
+
+            lines++;
+            depthRunHelper(arc.destination);
+
+            lines++;
+            assignments++;
+            arc = arc.nextArc;
+        }
     }
 
     /**
      * Limpia las marcas de todos los vertices.
      */
-    public void clearMarks() {
+    private void clearMarks() {
         Vertex aux = firstVertex;
         while (aux != null) {
             aux.mark = false;
@@ -221,11 +187,13 @@ public class Graph {
     /**
      * Recorre todos los nodos del grafo iterativamente.
      */
-    public void widthPath() {
+    public void widthRun() {
         lines++;
         Vertex tempVertex = firstVertex;
         assignments++;
 
+        comparisons++;
+        lines++;
         while (tempVertex != null) {
             lines++;
             comparisons++;
@@ -249,7 +217,7 @@ public class Graph {
 
     public void printVars(float time) {
         System.out.print("Timepo transcurrido: ");
-        System.out.printf("Tiempo = %.3f S\n",time/1000);
+        System.out.printf("Tiempo = %.3f S\n", time / 1000);
         System.out.print("Comparaciones: ");
         System.out.println(this.comparisons);
         System.out.print("Asignaciones: ");
@@ -257,5 +225,7 @@ public class Graph {
         System.out.print("Lineas de codigo: ");
         System.out.println(this.lines);
         System.out.println("\n");
+        this.assignments = 0;
+        this.comparisons = 0;
     }
 }
