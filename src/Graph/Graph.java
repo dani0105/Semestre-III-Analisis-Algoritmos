@@ -227,5 +227,6 @@ public class Graph {
         System.out.println("\n");
         this.assignments = 0;
         this.comparisons = 0;
+        this.lines = 0;
     }
 }
