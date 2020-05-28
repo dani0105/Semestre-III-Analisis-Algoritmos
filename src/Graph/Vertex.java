@@ -6,7 +6,6 @@ package Graph;
 public class Vertex {
 
     public Vertex nextVertex;
-    Vertex prevVertex;
     public int name;
     boolean mark;
     public Arc firstArc;

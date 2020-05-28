@@ -6,7 +6,7 @@ import Graph.Graph;
 public class Main {
 
     private static final int TREE_TEST_VALUE = 1000;
-    private static final int GRAPH_TEST_VALUE = 100;
+    private static final int GRAPH_TEST_VALUE = 10;
 
     /**
      * @param args the command line arguments
@@ -38,7 +38,6 @@ public class Main {
         System.out.printf("Grafos valor (%d)\n", GRAPH_TEST_VALUE);
         grafo = new Graph();
         grafo.createGraph(GRAPH_TEST_VALUE); //Se llena el grafo
-        //System.out.println(grafo.arcsCount(grafo.firstVertex));// cantidad de arcos que tiene el primer vertice  
 
         // Recorrido por profundidad (recursivo)
         System.out.println("Recorrido por profundidad");
